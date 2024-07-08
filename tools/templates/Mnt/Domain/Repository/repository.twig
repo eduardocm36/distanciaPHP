@@ -1,0 +1,72 @@
+<?php
+{% set nametwig %}{{ class }}{% endset %}
+{% set namespacetwig %}{{ namespace }}{% endset %}
+{% set nsfor %}{{ ns }}{% endset %}
+namespace {{nsfor}}\{{namespacetwig}};
+
+use App\Utils\Utils;
+use App\Utils\Service\NewError;
+use {{nsfor}}\{{response}}\Response\{{name}}Response;
+use {{nsfor}}\{{persistence}}\Persistence\{{name}}Persistence;
+
+class {{ nametwig }}{{ suffix }}
+{
+    private $request;
+    private $response;
+    private $service;
+
+    public function __construct($request = null, $response = null, $service = null)
+    {
+        $this->request = $request;
+        $this->response = $response;
+        $this->service = $service;
+    }
+
+    public function Listar($start, $length, $search, $order)
+    {
+        $data = {{name}}Persistence::Listar($start, $length, $search, $order);
+
+        $rs = new {{name}}Response($this->service);
+        $data = $rs->ListaResponse($data);
+
+        return  $data;
+    }
+
+    public function Crear($body)
+    {
+        // validators
+        $res = {{name}}Persistence::Crear($body);
+
+        //$rs = new {{name}}Response($this->service);
+        
+        return $res;
+    }
+
+    public function BuscarPorId($id)
+    {
+        $res = {{name}}Persistence::BuscarPorId($id);
+
+        $rs = new {{name}}Response($this->service);
+        $data = $rs->ListaResponse($res);
+
+        return  empty($data) ? NewError::__Log("El id no existe", 202) : $data[0];
+    }
+
+    public function Actualizar($id, $body)
+    {
+        // validators
+        $data = {{name}}Persistence::Actualizar($id, $body);
+        
+        //$rs = new {{name}}Response($this->service);
+        $res = Utils::responseParamsUpdate($data, $id);
+        return  $res;
+    }
+
+    public function Eliminar($id)
+    {
+        $res = {{name}}Persistence::Eliminar($id);
+
+        return  $res;
+    }
+
+}

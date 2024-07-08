@@ -1,0 +1,27 @@
+{
+  "name": "api_edu_distancia",
+  "version": "1.0.0",
+  "description": "API para extraer datos de egresados de Educacion a Distancia",
+  "main": "artisan.js",
+  "scripts": {
+    "start": "php -S localhost:8081 router.php",
+    "start:prod": "php -S 0.0.0.0:8081 ./app/router.php",
+    "watch": "webpack --watch --progress",
+    "dev": "pwd && php -S localhost:8081 router.php",
+    "make": "node artisan.js c"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "commander": "^10.0.1",
+    "node-php": "0.0.1",
+    "sphp": "^0.6.3",
+    "yargs": "^17.7.2"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "php-serve": "^0.0.1",
+    "php-server": "^1.0.0"
+  }
+}
